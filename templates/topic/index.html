@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+
+{% block panel %}
+<div class="panel">
+    <div class="header">
+        <a href="{{ url_for('index.index') }}" class="topic-tab">全部</a>
+
+        {% for b in boards %}
+        <a href="{{ url_for('index.index', board_id=b.id) }}" class="topic-tab">
+            {{ b.title }}
+        </a>
+        {% endfor %}
+    </div>
+    <div class="inner no-padding">
+        <div class="topic_list">
+            {% for t in topics %}
+            <div class="cell">
+                <a class="user_avatar pull-left" href="{{ url_for('user.profile', id=t.user().id) }}">
+                    <img src="{{ t.user().image }}" title="{{ t.user().username }}">
+                </a>
+                <span class="reply_count pull-left">
+                    <span class="count_of_replies" title="回复数">{{ t.reply_count()}}</span>
+                    <span class="count_seperator">/</span>
+                    <span class="count_of_visits" title="点击数">
+                      {{ t.views }}
+                    </span>
+                </span>
+                <div class="topic_title_wrapper">
+                    <span class="topiclist-tab">{{ t.board().title }}</span>
+                    <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }}"
+                       title="{{ t.title }}">
+                        {{ t.title }}
+                    </a>
+                </div>
+            </div>
+            {# <div class="cell">
+                <div class="topic_title_wrapper">
+                    <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }}">
+                        {{ t.title }}
+                    </a>
+                    <span>{{  t.reply_count() }} / {{ t.views }}</span>
+                    <span>{{ t.reply_count() }} / {{ t.views }}</span>
+                </div>
+            </div>#}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    var e = function(sel) {
+        return document.querySelector(sel)
+    }
+    var header = e('#content .panel .header')
+    header.addEventListener('click', function(event){
+        var self = event.target
+        if (self.className === 'topic-tab') {
+            var oldTab = e(".topic-tab, .current-tab")
+            oldTab.className = 'topic-tab'
+            self.className = 'topic-tab current-tab'
+        }
+    })
+
+</script>
+{% endblock %}

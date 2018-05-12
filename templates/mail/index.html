@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="{{ url_for('mail.add') }}" method="POST">
+        <input name="title" placeholder="title">
+        <input name="content" placeholder="content">
+        <input name="receiver_id" placeholder="receiver_id">
+        <button type="submit">发送私信</button>
+    </form>
+    <p>收到的私信</p>
+    {% for r in received %}
+        <div>
+            <a href="{{ url_for('mail.view', id=r.id) }}"> {{ r.title }}</a>
+        </div>
+    {% endfor %}
+    <p>发出的私信</p>
+    {% for s in sent %}
+        <div>
+            <a href="{{ url_for('mail.view', id=s.id) }}"> {{ s.title }}</a>
+        </div>
+    {% endfor %}
+
+</body>
+</html>
