@@ -1152,3 +1152,16 @@ textarea.editor {
 .sponsor_outlink:hover {
   text-decoration: none;
 }
+.mail-title {
+  font-size: 20px;
+  margin-left: 10px
+}
+.pure-u-3-4 {
+  width: 75%;
+  letter-spacing: normal;
+  word-spacing: normal;
+  vertical-align: top;
+  text-rendering: auto;
+  display: inline-block;
+  zoom: 1;
+}

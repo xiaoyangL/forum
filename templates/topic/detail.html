@@ -5,6 +5,65 @@
 <link href="//cdn.bootcss.com/prism/1.8.0/themes/prism.css" rel="stylesheet">
 {% endblock %}
 
+{% block sidebar %}
+<div class="panel">
+    <div class="header">
+        <span class="col_fade">作者</span>
+    </div>
+    <div class="inner">
+        <div class="user_card">
+            <div>
+                <a class="user_avatar" href="{{url_for('user.profile', id=tpoic_user.id)}}">
+                    <img src="{{ tpoic_user.image }}" title="{{ tpoic_user.username }}">
+                </a>
+                <span class="user_name">
+                                    <a class="dark"
+                                       href="{{url_for('user.profile', id=tpoic_user.id)}}">{{ tpoic_user.username }}</a>
+                                </span>
+                <div class="board clearfix">
+                </div>
+                <div class="space clearfix"></div>
+                <span class="signature">
+                                    {{ tpoic_user.signature }}
+                                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if topic.user_id != current_user_id %}
+<div class="panel">
+    <div class="inner">
+      <a href="{{ url_for('mail.new', receiver_id=topic.user_id)}}" id="create_topic_btn">
+        <span class="span-success">发私信</span>
+      </a>
+    </div>
+</div>
+{% endif %}
+
+<div class="panel">
+    <div class="header">
+        <span class="col_fade">无人回复的话题</span>
+    </div>
+    <div class="inner">
+
+        <ul class="unstyled">
+            {% for t in tpoic_user.no_repliy_topics() %}
+            <li>
+                <div>
+                    <a class="dark topic_title" href="" title="">
+                        {{ t.title }}
+                    </a>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+</div>
+{% endblock %}
+
+
 {% block panel %}
 
 <div class="panel">
@@ -14,7 +73,7 @@
             </span>
         <div class="changes">
                 <span>
-                    作者 <a href="{{ url_for('user.profile', id=topic.user_id)}}">{{ topic.user().username }}</a>
+                    作者 <a href="{{ url_for('user.profile', id=tpoic_user.id)}}">{{ tpoic_user.username }}</a>
                 </span>
             <span> {{ topic.views }} 次浏览 </span>
             <span> 来自 {{ board.title }}</span>
@@ -179,6 +238,7 @@
         }
 
         __main()
+
 
 
 

@@ -8,7 +8,7 @@ from utils import log
 
 
 def current_user():
-    # 从 session 中找到 user_id 字段, 找不到就 -1
+    # 从 session 中找到 user_id 字段, 找不到就 None
     # 然后 User.one来用 id 找用户
     # 找不到就返回 None
     if 'user_id' in session:
@@ -23,6 +23,7 @@ def current_user():
 
 
 def login_required(route_function):
+    # 登录验证
     @wraps(route_function)
     def f():
         u = current_user()
@@ -38,9 +39,15 @@ csrf_tokens = dict()
 
 
 def csrf_required(f):
+    # csrf防御
     @wraps(f)
     def wrapper(*args, **kwargs):
-        token = request.args.get('token')
+
+        if 'token' in request.args:
+            token = request.args.get('token')
+        else:
+            token = request.form.get('token')
+
         u = current_user()
 
         if token in csrf_tokens and csrf_tokens[token] == u.id:
@@ -53,6 +60,7 @@ def csrf_required(f):
 
 
 def new_csrf_token():
+    # 生成随机字符串
     u = current_user()
     token = str(uuid.uuid4())
     csrf_tokens[token] = u.id

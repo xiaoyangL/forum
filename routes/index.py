@@ -33,6 +33,7 @@ main = Blueprint('index', __name__)
 def index():
     board_id = int(request.args.get('board_id', -1))
 
+    # 如果board_id是-1，找出犬奴不
     if board_id == -1:
         ts = Topic.all(deleted=False)
     else:
@@ -59,14 +60,3 @@ def index():
 @main.route('/images/<filename>')
 def image(filename):
     return send_from_directory('images', filename)
-
-
-# def blueprint():
-#     main = Blueprint('index', __name__)
-#     main.route("/")(index)
-#     main.route("/register", methods=['POST'])(register)
-#     main.route("/login", methods=['POST'])(login)
-#     main.route('/profile')(profile)
-#     main.route('/user/<int:id>')(user_detail)
-#
-#     return main

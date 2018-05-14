@@ -1,6 +1,14 @@
 server {
     listen 80;
 
+    location /images {
+        alias /root/forum/images;
+    }
+
+    location /static {
+        alias /root/forum/static;
+    }
+
     location / {
         proxy_pass http://localhost:2000;
     }

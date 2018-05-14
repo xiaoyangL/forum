@@ -18,51 +18,34 @@
         <span><a href="https://segmentfault.com/markdown" target="_blank">Markdown 文档</a></span>
     </div>
 </div>
-<div class="panel">
-    <div class="header">
-        <span class="col_fade">话题发布指南</span>
-    </div>
-    <div class="inner">
-        <ol>
-            <li>尽量把话题要点浓缩到标题里</li>
-            <li>代码含义和报错可在 <a href="http://segmentfault.com/t/node.js">SegmentFault</a> 提问</li>
-        </ol>
-    </div>
-</div>
 {% endblock %}
 
 {% block panel %}
 <div class="panel">
-        <div class="header">
-            <ul class="breadcrumb">
-                <li><a href="{{ url_for('index.index') }}">主页</a><span class="divider">/</span></li>
-                <li class="active">发布话题</li>
-            </ul>
-        </div>
-        <div class="inner post">
-        <form id="create_topic_form" method="post" action="{{ url_for('topic.add') }}">
+    <div class="header">
+        <ul class="breadcrumb">
+            <li><a href="{{ url_for('index.index') }}">主页</a><span class="divider">/</span></li>
+            <li class="active">发送私信</li>
+        </ul>
+    </div>
+    <div class="inner post">
+        <form id="create_topic_form" method="post" action="{{ url_for('mail.add') }}">
             <fieldset>
-                <span class="tab-selector">选择版块：</span>
-                <select name="board_id" id="tab-value" required>
-                    <option value="">请选择</option>
-                    {% for b in total_board %}
-                    {% if current_board_id == b.id %}
-                    <option value="{{ b.id }}" selected>{{ b.title }}</option>
-                    {% else %}
-                    <option value="{{ b.id }}">{{ b.title }}</option>
-                    {% endif %}
-                    {% endfor %}
-                </select>
+                <span class="tab-selector">收件人：</span>
+
+                <input name="receiver_id" value="{{ receiver.id }}" hidden>
+                <input id="tab-value" value="{{ receiver.username }}">
+
                 <textarea autofocus class='span9' id='title'
                           name='title' rows='1'
-                          placeholder="标题字数 10 字以上"></textarea>
+                          placeholder="标题字数 10 字以上" style="margin-top: 10px"></textarea>
                 <div class='markdown_editor in_editor'>
                     <div class='markdown_in_editor'>
                                 <textarea class='editor' name='content' rows='20'
                                           placeholder='文章支持 Markdown 语法, 请注意标记代码'></textarea>
                         <div class='editor_buttons'>
                             <input type="submit" class='span-primary submit_btn' data-loading-text="提交中"
-                                   value="提交">
+                                   value="发送">
                         </div>
                     </div>
                 </div>
@@ -70,5 +53,4 @@
         </form>
     </div>
 </div>
-
 {% endblock %}

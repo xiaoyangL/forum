@@ -17,7 +17,7 @@ from flask import (
 from models.user import User
 from routes import current_user
 from utils import log
-
+from routes import current_user, login_required
 main = Blueprint('user', __name__)
 
 
@@ -54,6 +54,7 @@ def login():
 
 
 @main.route('/profile')
+@login_required
 def profile():
     u = current_user()
     # 如果没有传user的id那么就访问自己的主页
@@ -70,6 +71,7 @@ def profile():
     return render_template(
         'user/profile.html',
         user=user,
+        current_user_id=u.id,
         recent_created_topics=recent_created_topics,
         recent_join_topics=recent_join_topics,
     )

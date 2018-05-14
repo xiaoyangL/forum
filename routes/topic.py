@@ -10,8 +10,7 @@ from flask import (
 
 from models.board import Board
 from models.reply import Reply
-from models.user import User
-from routes import current_user, csrf_required, new_csrf_token, login_required
+from routes import current_user, new_csrf_token, login_required
 
 from models.topic import Topic
 from utils import log
@@ -43,7 +42,12 @@ def topic_same_user_required(route_function):
 @login_required
 def new():
     bs = Board.all()
-    return render_template('topic/new.html', total_board=bs)
+    t = new_csrf_token()
+    return render_template(
+        'topic/new.html',
+        total_board=bs,
+        csrf_token=t,
+    )
 
 
 @main.route("/add", methods=["POST"])
@@ -70,12 +74,13 @@ def detail(id):
     else:
         u_id = u.id
 
+
     return render_template(
         'topic/detail.html',
         topic=t,
-        user=t.user(),
+        tpoic_user=t.user(),
         current_user_id=u_id,
-        board=t.board()
+        board=t.board(),
     )
 
 
@@ -106,11 +111,12 @@ def edit():
 
     bs = Board.all()
 
-    return render_template('topic/edit.html',
-                           topic=t,
-                           current_board_id=t.board_id,
-                           total_board=bs
-                           )
+    return render_template(
+        'topic/edit.html',
+        topic=t,
+        current_board_id=t.board_id,
+        total_board=bs
+    )
 
 
 @main.route("/update", methods=["POST"])

@@ -1,6 +1,5 @@
-from sqlalchemy import Column, String
 
-from models import reset_database, SQLMixin, SQLBase, configured_engine
+from models import reset_database
 from models.board import Board
 from models.mail import Mail
 from models.reply import Reply

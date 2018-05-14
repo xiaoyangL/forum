@@ -16,6 +16,8 @@
         <div class='container'>
             <ul class='nav pull-right'>
                 <li><a href="{{ url_for('index.index') }}">首页</a></li>
+                <li><a href="{{ url_for('user.profile') }}">个人主页</a></li>
+                <li><a href="{{ url_for('mail.index') }}">私信</a></li>
                 <li><a href="{{ url_for('setting.setting_view') }}">设置</a></li>
                 <li><a href="{{ url_for('user.register_view') }}">注册</a></li>
                 <li><a href="{{ url_for('user.login_view') }}">登录</a></li>
@@ -29,6 +31,7 @@
     </div>
 </div>
 
+{% block main%}
 <div id="main">
 
      <div id="sidebar">
@@ -41,12 +44,6 @@
                         <a href="{{ url_for('user.login_view') }}">登录</a>
                         或
                         <a href="{{ url_for('user.register_view') }}">注册</a>
-                        , 也可以
-                        <a href="">
-                          <span class="span-info">
-                            通过 GitHub 登录
-                          </span>
-                        </a>
                     </div>
                 </div>
             </div>
@@ -75,12 +72,12 @@
                     </div>
                 </div>
                 <div class="panel">
-                <div class="inner">
+                    <div class="inner">
                     <a href="{{ url_for('topic.new') }}" class="create_topic_btn">
                         <span class="span-success">发布话题</span>
                     </a>
                 </div>
-            </div>
+                </div>
             {% endif %}
         {% endblock %}
      </div>
@@ -91,7 +88,10 @@
      </div>
 
 </div>
+{% endblock %}
 
+
+{% block footer %}
 <div id="footer" class="fix-bottom">
     <div id="footer_main">
         <div class="links">
@@ -125,7 +125,7 @@
         </div>
     </div>
 </div>
-
+{% endblock %}
 </body>
 
 {% block script %} {% endblock %}

@@ -13,3 +13,13 @@ class Mail(SQLMixin, SQLBase):
     content = Column(Text, nullable=False)
     sender_id = Column(Integer, nullable=False)
     receiver_id = Column(Integer, nullable=False)
+
+    def sender(self):
+        from .user import User
+        u = User.one(id=self.sender_id)
+        return u
+
+    def receiver(self):
+        from .user import User
+        u = User.one(id=self.receiver_id)
+        return u

@@ -1,8 +1,3 @@
-import time
-from models import Model
-from models.user import User
-from models.reply import Reply
-
 from sqlalchemy import Column, String, Integer, Text
 from models import SQLMixin, SQLBase
 

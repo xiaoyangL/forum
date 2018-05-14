@@ -1,8 +1,10 @@
 import hashlib
+import json
 
 from sqlalchemy import Column, String, Text
 
 from models import SQLMixin, SQLBase
+from models.user_role import UserRole, Encoder, decode
 from utils import log
 
 
@@ -16,6 +18,11 @@ class User(SQLMixin, SQLBase):
     password = Column(String(100), nullable=False)
     image = Column(String(100), nullable=False, default='/images/1.jpg')
     signature = Column(Text, default="这家伙很懒，什么个性签名都没有留下。")
+
+    def is_guest(self):
+        # 这里得把json格式字符串，反序列化为python类。
+        role = json.loads(self.role, object_hook=decode)
+        return role == UserRole.guest
 
     @staticmethod
     def salted_password(password, salt='?+=jioat10][auihi}/;;'):
@@ -84,3 +91,17 @@ class User(SQLMixin, SQLBase):
             join_topics.append(topic)
 
         return join_topics
+
+    def no_repliy_topics(self):
+        """没人回复的话题"""
+        from models.topic import Topic
+        ts = Topic.all(user_id=self.id, deleted=False)
+        log('没人回复: ', ts)
+
+        no_repliy_t = []
+        for index, topic in enumerate(ts):
+            if topic.reply_count() == 0:
+                no_repliy_t.append(topic)
+
+        log('没人回复的话题: ', no_repliy_t)
+        return no_repliy_t
