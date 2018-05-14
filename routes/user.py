@@ -54,10 +54,13 @@ def login():
 
 
 @main.route('/profile')
-@login_required
 def profile():
     u = current_user()
     # 如果没有传user的id那么就访问自己的主页
+    if u is None:
+        u = User()
+        u.id = -1
+
     user_id = int(request.args.get('id', u.id))
 
     if u.id == user_id:
