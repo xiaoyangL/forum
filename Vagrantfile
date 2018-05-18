@@ -3,7 +3,6 @@
 
 Vagrant.configure("2") do |config|
   
-  # 虚拟机名字，不能改
   # config.vm.box = "ubuntu/trusty64"
   config.vm.box = "guavm"
 
