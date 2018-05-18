@@ -13,8 +13,8 @@ pip3 install jinja2 flask gunicorn sqlalchemy pymysql gevent
 
 # 安装MySQL
 apt-get -y install debconf-utils git supervisor nginx zsh curl ufw
-debconf-set-selections <<< 'mysql-server mysql-server/root_password password admin'
-debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password admin'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password {}'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password {}'
 apt-get -y install mysql-server
 
 ln -s -f /root/forum/my.cnf /etc/mysql/my.cnf
