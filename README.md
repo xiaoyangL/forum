@@ -9,3 +9,4 @@ CNode社区模拟
 
 demo展示
 -----
+!https://raw.githubusercontent.com/xiaoyangL/photo/master/forum.gif
