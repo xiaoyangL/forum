@@ -84,7 +84,7 @@
             <a href="{{ url_for('topic.edit', id=topic.id)}}">
                 <i class="fa fa-lg fa-pencil-square-o" title="编辑">编辑</i>
             </a>
-            <a href="{{ url_for('topic.delete', id=topic.id)}}" class="delete_topic_btn">
+            <a href="{{ url_for('topic.delete', id=topic.id, token=token)}}" class="delete_topic_btn">
                 <i class="fa fa-lg fa-trash" title="删除">删除</i>
             </a>
         </div>

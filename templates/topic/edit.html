@@ -40,7 +40,7 @@
             </ul>
         </div>
         <div class="inner post">
-        <form id="create_topic_form" method="post" action="{{ url_for('topic.update') }}">
+        <form id="create_topic_form" method="post" action="{{ url_for('topic.update', token=token) }}">
             <fieldset>
                 <select name="board_id" id="tab-value" required>>
                     <option value="">请选择</option>

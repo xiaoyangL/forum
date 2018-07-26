@@ -4,7 +4,6 @@ import json
 from sqlalchemy import Column, String, Text
 
 from models import SQLMixin, SQLBase
-from models.user_role import UserRole, Encoder, decode
 from utils import log
 
 
